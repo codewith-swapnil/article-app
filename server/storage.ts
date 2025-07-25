@@ -95,12 +95,6 @@ export class DatabaseStorage implements IStorage {
       offset = 0
     } = options;
 
-    let query = db
-      .select()
-      .from(articles)
-      .leftJoin(categories, eq(articles.categoryId, categories.id))
-      .where(eq(articles.published, published));
-
     const conditions = [eq(articles.published, published)];
 
     if (categoryId) {
@@ -115,9 +109,11 @@ export class DatabaseStorage implements IStorage {
       conditions.push(ilike(articles.title, `%${search}%`));
     }
 
-    if (conditions.length > 1) {
-      query = query.where(and(...conditions));
-    }
+    const query = db
+      .select()
+      .from(articles)  
+      .leftJoin(categories, eq(articles.categoryId, categories.id))
+      .where(conditions.length > 1 ? and(...conditions) : conditions[0])
 
     const results = await query
       .orderBy(desc(articles.createdAt))

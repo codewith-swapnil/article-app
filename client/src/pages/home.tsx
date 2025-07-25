@@ -13,7 +13,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import type { ArticleWithCategory } from "@shared/schema";
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isMobile = useIsMobile();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -42,11 +42,10 @@ export default function Home() {
   // Set initial language from localStorage
   useEffect(() => {
     const savedLanguage = localStorage.getItem('preferred-language');
-    if (savedLanguage) {
-      const { i18n } = require('react-i18next');
+    if (savedLanguage && i18n) {
       i18n.changeLanguage(savedLanguage);
     }
-  }, []);
+  }, [i18n]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import type { ArticleWithCategory } from "@shared/schema";
 
 export function HeroSection() {
@@ -87,12 +88,14 @@ export function HeroSection() {
               </span>
             </div>
             
-            <h1 className={`text-4xl font-bold text-slate-900 mb-6 leading-tight ${
-              featuredArticle.language === 'hi' ? 'font-hindi' : 
-              featuredArticle.language === 'ta' ? 'font-tamil' : ''
-            }`}>
-              {featuredArticle.title}
-            </h1>
+            <Link href={`/article/${featuredArticle.slug}`}>
+              <h1 className={`text-4xl font-bold text-slate-900 mb-6 leading-tight hover:text-primary cursor-pointer transition-colors ${
+                featuredArticle.language === 'hi' ? 'font-hindi' : 
+                featuredArticle.language === 'ta' ? 'font-tamil' : ''
+              }`}>
+                {featuredArticle.title}
+              </h1>
+            </Link>
             
             <p className={`text-lg text-slate-600 mb-8 leading-relaxed ${
               featuredArticle.language === 'hi' ? 'font-hindi' : 
@@ -101,7 +104,7 @@ export function HeroSection() {
               {featuredArticle.excerpt}
             </p>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 mb-6">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
                   <span className="text-white font-semibold text-sm">
@@ -130,6 +133,12 @@ export function HeroSection() {
                 {t('article.save')}
               </Button>
             </div>
+            
+            <Link href={`/article/${featuredArticle.slug}`}>
+              <Button size="lg" className="mb-4">
+                Read Full Article
+              </Button>
+            </Link>
           </div>
           
           <div className="relative">

@@ -3,6 +3,7 @@ import { Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
+import { Link } from "wouter";
 import type { ArticleWithCategory } from "@shared/schema";
 
 interface ArticleCardProps {
@@ -53,11 +54,13 @@ export function ArticleCard({ article }: ArticleCardProps) {
   return (
     <article className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow">
       {article.featuredImage && (
-        <img 
-          src={article.featuredImage} 
-          alt={article.title}
-          className="w-full h-48 object-cover"
-        />
+        <Link href={`/article/${article.slug}`} className="block">
+          <img 
+            src={article.featuredImage} 
+            alt={article.title}
+            className="w-full h-48 object-cover hover:opacity-90 transition-opacity"
+          />
+        </Link>
       )}
       <div className="p-6">
         <div className="flex items-center space-x-2 mb-3">
@@ -69,14 +72,16 @@ export function ArticleCard({ article }: ArticleCardProps) {
           </span>
         </div>
         
-        <h3 
-          className={`text-xl font-semibold text-slate-900 mb-3 leading-tight hover:text-primary cursor-pointer line-clamp-2 ${
-            article.language === 'hi' ? 'font-hindi' : 
-            article.language === 'ta' ? 'font-tamil' : ''
-          }`}
-        >
-          {article.title}
-        </h3>
+        <Link href={`/article/${article.slug}`}>
+          <h3 
+            className={`text-xl font-semibold text-slate-900 mb-3 leading-tight hover:text-primary cursor-pointer line-clamp-2 ${
+              article.language === 'hi' ? 'font-hindi' : 
+              article.language === 'ta' ? 'font-tamil' : ''
+            }`}
+          >
+            {article.title}
+          </h3>
+        </Link>
         
         <p 
           className={`text-slate-600 mb-4 line-clamp-3 ${
@@ -87,7 +92,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
           {article.excerpt}
         </p>
         
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
               <span className="text-white text-xs font-semibold">
@@ -115,6 +120,12 @@ export function ArticleCard({ article }: ArticleCardProps) {
             <Bookmark className={`h-4 w-4 ${isBookmarked ? 'fill-current' : ''}`} />
           </Button>
         </div>
+        
+        <Link href={`/article/${article.slug}`}>
+          <Button variant="outline" className="w-full">
+            Read Full Article
+          </Button>
+        </Link>
       </div>
     </article>
   );

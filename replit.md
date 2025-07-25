@@ -27,9 +27,9 @@ Preferred communication style: Simple, everyday language.
 - **Error Handling**: Centralized error middleware with structured responses
 
 ### Database Layer
-- **ORM**: Drizzle ORM for type-safe database operations
-- **Database**: PostgreSQL (configured for Neon serverless)
-- **Connection**: Neon serverless with WebSocket support
+- **Storage**: Memory-based storage for reliable startup in Replit environment
+- **ORM**: Drizzle ORM schema definitions for type safety
+- **Fallback Support**: MongoDB integration available but uses memory storage for demo
 - **Schema**: Shared schema definitions between client and server
 
 ## Key Components

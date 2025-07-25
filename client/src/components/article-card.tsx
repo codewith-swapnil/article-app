@@ -52,7 +52,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   };
 
   return (
-    <article className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow">
+    <article className="glass-card rounded-xl overflow-hidden animate-fade-in-up hover:scale-105 transition-all duration-300">
       {article.featuredImage && (
         <Link href={`/article/${article.slug}`} className="block">
           <img 
@@ -64,7 +64,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
       )}
       <div className="p-6">
         <div className="flex items-center space-x-2 mb-3">
-          <Badge className={getCategoryColor(article.category.name)}>
+          <Badge className="category-badge text-primary font-medium px-3 py-1">
             {article.category.name}
           </Badge>
           <span className="text-slate-500 text-sm">
@@ -122,7 +122,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         </div>
         
         <Link href={`/article/${article.slug}`}>
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full btn-gradient text-white border-none hover:text-white">
             Read Full Article
           </Button>
         </Link>

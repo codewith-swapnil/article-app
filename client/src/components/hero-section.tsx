@@ -72,12 +72,13 @@ export function HeroSection() {
   }
 
   return (
-    <section className="bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <section className="relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/30 animate-float"></div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div className="animate-slide-in-right">
             <div className="flex items-center space-x-2 mb-4">
-              <Badge className="bg-secondary text-white">
+              <Badge className="bg-gradient-to-r from-secondary to-orange-500 text-white px-4 py-2 animate-pulse">
                 {t('article.featured')}
               </Badge>
               <span className="text-slate-500 text-sm">{featuredArticle.category.name}</span>
@@ -124,39 +125,37 @@ export function HeroSection() {
                 </div>
               </div>
               
-              <Button
-                variant="outline"
-                onClick={handleBookmark}
-                className={`${isBookmarked ? 'text-primary border-primary' : ''}`}
-              >
-                <Bookmark className={`h-4 w-4 mr-2 ${isBookmarked ? 'fill-current' : ''}`} />
-                {t('article.save')}
-              </Button>
+
             </div>
             
-            <Link href={`/article/${featuredArticle.slug}`}>
-              <Button size="lg" className="mb-4">
-                Read Full Article
+            <div className="flex space-x-4">
+              <Link href={`/article/${featuredArticle.slug}`}>
+                <Button size="lg" className="btn-gradient text-white border-none hover:text-white px-8">
+                  {t('article.readFull')}
+                </Button>
+              </Link>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                onClick={handleBookmark}
+                className={`glass-card border-2 ${isBookmarked ? 'text-primary border-primary bg-primary/10' : 'border-primary/30'}`}
+              >
+                <Bookmark className={`mr-2 h-4 w-4 ${isBookmarked ? 'fill-current' : ''}`} />
+                {t('article.bookmark')}
               </Button>
-            </Link>
+            </div>
           </div>
           
-          <div className="relative">
-            {featuredArticle.featuredImage ? (
+          <div className="relative animate-fade-in-up">
+            <div className="relative z-10">
               <img 
-                src={featuredArticle.featuredImage} 
+                src={featuredArticle.featuredImage || 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&h=400&fit=crop'} 
                 alt={featuredArticle.title}
-                className="rounded-2xl shadow-2xl w-full h-auto"
+                className="w-full h-96 object-cover rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-500"
               />
-            ) : (
-              <div className="rounded-2xl shadow-2xl w-full h-96 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-                <div className="text-center text-slate-500">
-                  <User className="h-16 w-16 mx-auto mb-4" />
-                  <p>No featured image</p>
-                </div>
-              </div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+            </div>
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-2xl animate-pulse"></div>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { CategoryFilter } from "@/components/category-filter";
 import { ArticleCard } from "@/components/article-card";
 import { AdminPanel } from "@/components/admin-panel";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { BannerAd, InFeedAd, SidebarAd } from "@/components/ads/google-ads";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -129,6 +130,11 @@ export default function Home() {
       {/* Hero Section */}
       <HeroSection />
 
+      {/* Top Banner Ad */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <BannerAd className="text-center" />
+      </div>
+
       {/* Category Filter */}
       <CategoryFilter
         selectedCategory={selectedCategory}
@@ -139,52 +145,74 @@ export default function Home() {
 
       {/* Articles Grid */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden animate-pulse">
-                <div className="w-full h-48 bg-slate-200"></div>
-                <div className="p-6 space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <div className="h-6 w-20 bg-slate-200 rounded-full"></div>
-                    <div className="h-4 w-16 bg-slate-200 rounded"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden animate-pulse">
+                    <div className="w-full h-48 bg-slate-200"></div>
+                    <div className="p-6 space-y-4">
+                      <div className="flex items-center space-x-2">
+                        <div className="h-6 w-20 bg-slate-200 rounded-full"></div>
+                        <div className="h-4 w-16 bg-slate-200 rounded"></div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-6 bg-slate-200 rounded"></div>
+                        <div className="h-6 bg-slate-200 rounded"></div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-4 bg-slate-200 rounded"></div>
+                        <div className="h-4 bg-slate-200 rounded"></div>
+                        <div className="h-4 w-2/3 bg-slate-200 rounded"></div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <div className="h-6 bg-slate-200 rounded"></div>
-                    <div className="h-6 bg-slate-200 rounded"></div>
+                ))}
+              </div>
+            ) : articles.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-slate-600 text-lg">No articles found</p>
+                <p className="text-slate-500 text-sm mt-2">
+                  {searchQuery ? 'Try adjusting your search terms' : 'Check back later for new content'}
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {articles.map((article, index) => (
+                  <div key={article.id}>
+                    <ArticleCard article={article} />
+                    {/* Insert in-feed ads every 3 articles */}
+                    {(index + 1) % 3 === 0 && <InFeedAd />}
                   </div>
-                  <div className="space-y-2">
-                    <div className="h-4 bg-slate-200 rounded"></div>
-                    <div className="h-4 bg-slate-200 rounded"></div>
-                    <div className="h-4 w-2/3 bg-slate-200 rounded"></div>
-                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          {/* Sidebar with Ads */}
+          <div className="lg:col-span-1 space-y-8">
+            <SidebarAd />
+            <div className="glass-card p-6 rounded-lg">
+              <h3 className="font-semibold text-slate-900 mb-4">Popular Categories</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>Technology</span>
+                  <span className="text-slate-500">24</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Politics</span>
+                  <span className="text-slate-500">18</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Sports</span>
+                  <span className="text-slate-500">12</span>
                 </div>
               </div>
-            ))}
-          </div>
-        ) : articles.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-slate-600 text-lg">No articles found</p>
-            <p className="text-slate-500 text-sm mt-2">
-              {searchQuery ? 'Try adjusting your search terms' : 'Check back later for new content'}
-            </p>
-          </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {articles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
             </div>
-
-            {/* Load More */}
-            <div className="text-center mt-12">
-              <Button size="lg">
-                {t('article.loadMore')}
-              </Button>
-            </div>
-          </>
-        )}
+          </div>
+        </div>
       </main>
 
       {/* Admin Panel Toggle */}

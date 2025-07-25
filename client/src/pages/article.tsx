@@ -4,6 +4,7 @@ import { ArrowLeft, Clock, User, Bookmark, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
+import { ArticleBottomAd, SidebarAd } from "@/components/ads/google-ads";
 import type { ArticleWithCategory } from "@shared/schema";
 
 export default function Article() {
@@ -164,13 +165,25 @@ export default function Article() {
           </div>
         )}
 
-        {/* Article Content */}
-        <div className={`prose prose-lg max-w-none ${
-          article.language === 'hi' ? 'font-hindi' : 
-          article.language === 'ta' ? 'font-tamil' : ''
-        }`}>
-          <div className="whitespace-pre-wrap text-slate-700 leading-relaxed">
-            {article.content}
+        {/* Article Content with Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-3">
+            <div className={`prose prose-lg max-w-none ${
+              article.language === 'hi' ? 'font-hindi' : 
+              article.language === 'ta' ? 'font-tamil' : ''
+            }`}>
+              <div className="whitespace-pre-wrap text-slate-700 leading-relaxed">
+                {article.content}
+              </div>
+            </div>
+            
+            {/* Article Bottom Ad */}
+            <ArticleBottomAd />
+          </div>
+          
+          {/* Sidebar with Ad */}
+          <div className="lg:col-span-1">
+            <SidebarAd />
           </div>
         </div>
 

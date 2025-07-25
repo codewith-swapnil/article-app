@@ -2,7 +2,7 @@
 
 ## Overview
 
-IndiaDaily is a modern article publishing platform designed for the Indian market with multi-language support. The application provides a content management system for creating, managing, and displaying articles in multiple Indian languages including English, Hindi, Marathi, and Tamil. It features a clean, responsive design optimized for both desktop and mobile devices.
+IndiaDaily is a modern article publishing platform designed for the Indian market with multi-language support. The application provides a content management system for creating, managing, and displaying articles in multiple Indian languages including English, Hindi, Marathi, and Tamil. It features a clean, responsive design optimized for both desktop and mobile devices, modern CSS animations, Google Ads integration, and comprehensive sample data for demonstration.
 
 ## User Preferences
 
@@ -22,9 +22,11 @@ Preferred communication style: Simple, everyday language.
 ### Backend Architecture
 - **Runtime**: Node.js with Express.js server
 - **Language**: TypeScript with ESM modules
-- **API Design**: RESTful API architecture
+- **API Design**: RESTful API architecture with modular router structure
+- **API Separation**: Dedicated route modules for articles, categories, and uploads
 - **File Uploads**: Multer middleware for image handling
 - **Error Handling**: Centralized error middleware with structured responses
+- **Health Monitoring**: API health check endpoints
 
 ### Database Layer
 - **Storage**: Memory-based storage for reliable startup in Replit environment
@@ -46,12 +48,14 @@ Preferred communication style: Simple, everyday language.
    - Read time estimation
 
 ### Frontend Components
-- **Hero Section**: Featured article display with engaging visuals
-- **Article Cards**: Responsive article previews with metadata
+- **Hero Section**: Featured article display with engaging visuals and modern animations
+- **Article Cards**: Responsive article previews with glass morphism effects
 - **Category Filters**: Dynamic filtering by category and sorting
 - **Language Switcher**: Seamless language switching with persistence
 - **Admin Panel**: Content management interface for CRUD operations
 - **Image Upload**: Drag-and-drop image handling with validation
+- **Google Ads Integration**: Banner, sidebar, in-feed, and article-bottom ad placements
+- **Modern CSS**: Glass morphism effects, gradient animations, and smooth transitions
 
 ### API Endpoints
 - `/api/categories` - Category management

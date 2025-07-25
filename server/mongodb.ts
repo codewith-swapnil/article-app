@@ -15,6 +15,38 @@ const connectDB = async () => {
   }
 };
 
+// User Schema
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true }
+}, { timestamps: true });
+
+// Category Schema
+const categorySchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  slug: { type: String, required: true, unique: true }
+}, { timestamps: true });
+
+// Article Schema
+const articleSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  slug: { type: String, required: true, unique: true },
+  content: { type: String, required: true },
+  excerpt: { type: String, required: true },
+  featuredImage: { type: String },
+  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+  author: { type: String, required: true },
+  authorAvatar: { type: String },
+  language: { type: String, required: true, default: 'hi' },
+  tags: [{ type: String }],
+  readTime: { type: Number, required: true, default: 5 },
+  published: { type: Boolean, required: true, default: false }
+}, { timestamps: true });
+
+export const User = mongoose.model('User', userSchema);
+export const Category = mongoose.model('Category', categorySchema);
+export const Article = mongoose.model('Article', articleSchema);
+
 const seedInitialData = async () => {
   try {
     // Check if categories exist
@@ -102,37 +134,5 @@ const seedInitialData = async () => {
     console.error('Error seeding data:', error);
   }
 };
-
-// User Schema
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
-}, { timestamps: true });
-
-// Category Schema
-const categorySchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  slug: { type: String, required: true, unique: true }
-}, { timestamps: true });
-
-// Article Schema
-const articleSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  slug: { type: String, required: true, unique: true },
-  content: { type: String, required: true },
-  excerpt: { type: String, required: true },
-  featuredImage: { type: String },
-  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
-  author: { type: String, required: true },
-  authorAvatar: { type: String },
-  language: { type: String, required: true, default: 'hi' },
-  tags: [{ type: String }],
-  readTime: { type: Number, required: true, default: 5 },
-  published: { type: Boolean, required: true, default: false }
-}, { timestamps: true });
-
-export const User = mongoose.model('User', userSchema);
-export const Category = mongoose.model('Category', categorySchema);
-export const Article = mongoose.model('Article', articleSchema);
 
 export { connectDB };

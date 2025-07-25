@@ -123,29 +123,32 @@ export class MongoStorage implements IStorage {
       .limit(limit)
       .skip(offset);
 
-    return articles.map(article => ({
-      id: article._id.toString(),
-      title: article.title,
-      slug: article.slug,
-      content: article.content,
-      excerpt: article.excerpt,
-      featuredImage: article.featuredImage,
-      categoryId: article.categoryId._id.toString(),
-      author: article.author,
-      authorAvatar: article.authorAvatar,
-      language: article.language,
-      tags: article.tags,
-      readTime: article.readTime,
-      published: article.published,
-      createdAt: article.createdAt,
-      updatedAt: article.updatedAt,
-      category: {
-        id: article.categoryId._id.toString(),
-        name: article.categoryId.name,
-        slug: article.categoryId.slug,
-        createdAt: article.categoryId.createdAt
-      }
-    }));
+    return articles.map(article => {
+      const category = article.categoryId as any;
+      return {
+        id: article._id.toString(),
+        title: article.title,
+        slug: article.slug,
+        content: article.content,
+        excerpt: article.excerpt,
+        featuredImage: article.featuredImage || null,
+        categoryId: category._id.toString(),
+        author: article.author,
+        authorAvatar: article.authorAvatar || null,
+        language: article.language,
+        tags: article.tags || null,
+        readTime: article.readTime,
+        published: article.published,
+        createdAt: article.createdAt,
+        updatedAt: article.updatedAt,
+        category: {
+          id: category._id.toString(),
+          name: category.name,
+          slug: category.slug,
+          createdAt: category.createdAt
+        }
+      };
+    });
   }
 
   async getArticleBySlug(slug: string): Promise<ArticleWithCategory | undefined> {
@@ -153,27 +156,28 @@ export class MongoStorage implements IStorage {
     
     if (!article) return undefined;
 
+    const category = article.categoryId as any;
     return {
       id: article._id.toString(),
       title: article.title,
       slug: article.slug,
       content: article.content,
       excerpt: article.excerpt,
-      featuredImage: article.featuredImage,
-      categoryId: article.categoryId._id.toString(),
+      featuredImage: article.featuredImage || null,
+      categoryId: category._id.toString(),
       author: article.author,
-      authorAvatar: article.authorAvatar,
+      authorAvatar: article.authorAvatar || null,
       language: article.language,
-      tags: article.tags,
+      tags: article.tags || null,
       readTime: article.readTime,
       published: article.published,
       createdAt: article.createdAt,
       updatedAt: article.updatedAt,
       category: {
-        id: article.categoryId._id.toString(),
-        name: article.categoryId.name,
-        slug: article.categoryId.slug,
-        createdAt: article.categoryId.createdAt
+        id: category._id.toString(),
+        name: category.name,
+        slug: category.slug,
+        createdAt: category.createdAt
       }
     };
   }
@@ -183,27 +187,28 @@ export class MongoStorage implements IStorage {
     
     if (!article) return undefined;
 
+    const category = article.categoryId as any;
     return {
       id: article._id.toString(),
       title: article.title,
       slug: article.slug,
       content: article.content,
       excerpt: article.excerpt,
-      featuredImage: article.featuredImage,
-      categoryId: article.categoryId._id.toString(),
+      featuredImage: article.featuredImage || null,
+      categoryId: category._id.toString(),
       author: article.author,
-      authorAvatar: article.authorAvatar,
+      authorAvatar: article.authorAvatar || null,
       language: article.language,
-      tags: article.tags,
+      tags: article.tags || null,
       readTime: article.readTime,
       published: article.published,
       createdAt: article.createdAt,
       updatedAt: article.updatedAt,
       category: {
-        id: article.categoryId._id.toString(),
-        name: article.categoryId.name,
-        slug: article.categoryId.slug,
-        createdAt: article.categoryId.createdAt
+        id: category._id.toString(),
+        name: category.name,
+        slug: category.slug,
+        createdAt: category.createdAt
       }
     };
   }
@@ -217,12 +222,12 @@ export class MongoStorage implements IStorage {
       slug: savedArticle.slug,
       content: savedArticle.content,
       excerpt: savedArticle.excerpt,
-      featuredImage: savedArticle.featuredImage,
+      featuredImage: savedArticle.featuredImage || null,
       categoryId: savedArticle.categoryId.toString(),
       author: savedArticle.author,
-      authorAvatar: savedArticle.authorAvatar,
+      authorAvatar: savedArticle.authorAvatar || null,
       language: savedArticle.language,
-      tags: savedArticle.tags,
+      tags: savedArticle.tags || null,
       readTime: savedArticle.readTime,
       published: savedArticle.published,
       createdAt: savedArticle.createdAt,
@@ -240,12 +245,12 @@ export class MongoStorage implements IStorage {
       slug: article.slug,
       content: article.content,
       excerpt: article.excerpt,
-      featuredImage: article.featuredImage,
+      featuredImage: article.featuredImage || null,
       categoryId: article.categoryId.toString(),
       author: article.author,
-      authorAvatar: article.authorAvatar,
+      authorAvatar: article.authorAvatar || null,
       language: article.language,
-      tags: article.tags,
+      tags: article.tags || null,
       readTime: article.readTime,
       published: article.published,
       createdAt: article.createdAt,
@@ -264,27 +269,28 @@ export class MongoStorage implements IStorage {
 
     if (!article) return undefined;
 
+    const category = article.categoryId as any;
     return {
       id: article._id.toString(),
       title: article.title,
       slug: article.slug,
       content: article.content,
       excerpt: article.excerpt,
-      featuredImage: article.featuredImage,
-      categoryId: article.categoryId._id.toString(),
+      featuredImage: article.featuredImage || null,
+      categoryId: category._id.toString(),
       author: article.author,
-      authorAvatar: article.authorAvatar,
+      authorAvatar: article.authorAvatar || null,
       language: article.language,
-      tags: article.tags,
+      tags: article.tags || null,
       readTime: article.readTime,
       published: article.published,
       createdAt: article.createdAt,
       updatedAt: article.updatedAt,
       category: {
-        id: article.categoryId._id.toString(),
-        name: article.categoryId.name,
-        slug: article.categoryId.slug,
-        createdAt: article.categoryId.createdAt
+        id: category._id.toString(),
+        name: category.name,
+        slug: category.slug,
+        createdAt: category.createdAt
       }
     };
   }

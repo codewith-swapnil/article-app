@@ -1,7 +1,13 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
-// Removed MongoDB connection for reliable startup
+import { config } from "dotenv";
+import { connectDB } from "./mongodb";
+
+config();
+connectDB().catch((error) => {
+  console.error("Failed to connect to MongoDB:", error);
+});
 
 const app = express();
 app.use(express.json());
@@ -65,7 +71,7 @@ app.use((req, res, next) => {
   server.listen({
     port,
     host: "0.0.0.0",
-    reusePort: true,
+    //reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
   });
